@@ -11,6 +11,6 @@ ReVanced Builder
 # 영어 / English
  - Download `ReVanced.Builder.bat` and start
  - If you installed ZULU JDK 17, input Y. Else, input N
- - Choose function from opened txt file and input like : `-i (function1) -i (function2)`
+ - Choose plugins from opened txt file and input like : `-i (plugin1) -i (plugin2)`
  - Move `revanced.apk` from a folder that has `ReVanced.Builder.bat` to your phone and install `revanced.apk`
  - run `Cleaner.bat` to delete temp files
