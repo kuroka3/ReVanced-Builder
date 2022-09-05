@@ -24,26 +24,39 @@ if '%errorlevel%' NEQ '0' (
     CD /D "%~dp0"
 :--------------------------------------
 
-md revanced
-cd revanced
+echo rd /s /q "%appdata%\revancedtmp" > Cleaner.bat
+md %appdata%\revancedtmp
+cd %appdata%\revancedtmp
+md %cd%\revanced
+cd %cd%\revanced
 md Build
 md tmp
-echo download revanced-cli.jar
+echo download revanced-cli...
 if not exist %cd%\Build\revanced-cli.jar powershell -Command "(New-Object Net.WebClient).DownloadFile('https://cdn.discordapp.com/attachments/1012934189919768637/1015913335675428944/revanced-cli.jar', '%cd%\Build\revanced-cli.jar')"
-echo download revanced-patches.jar
+cls
+echo download revanced-cli...ok
+echo download revanced-patches...
 if not exist %cd%\Build\revanced-patches.jar powershell -Command "(New-Object Net.WebClient).DownloadFile('https://cdn.discordapp.com/attachments/1012934189919768637/1015913337852276736/revanced-patches.jar', '%cd%\Build\revanced-patches.jar')"
-echo download youtube.apk
+cls
+echo download revanced-cli...ok
+echo download revanced-patches...ok
+echo download youtube...
 if not exist %cd%\Build\youtube.apk powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/xemulat/MyFilesForDDL/releases/download/youtube/youtube.apk', '%cd%\Build\youtube.apk')"
-echo download app-unsigned.apk
+cls
+echo download revanced-cli...ok
+echo download revanced-patches...ok
+echo download youtube...ok
+echo download app-unsigned...
 if not exist %cd%\Build\app-unsigned.apk powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/revanced/revanced-integrations/releases/download/v0.36.5/app-release-unsigned.apk', '%cd%\Build\app-unsigned.apk')"
+cls
+echo download revanced-cli...ok
+echo download revanced-patches...ok
+echo download youtube...ok
+echo download app-unsigned...ok
 
 if exist %cd%\list.txt goto ifjdk
 
-echo hide-cast-button : 크롬캐스트 버튼 삭제 (필수)> list.txt
-echo. >> list.txt
-echo microg-support : 루팅하지 않은 기기에서 Vanced microG 지원 (필수)>> list.txt
-echo. >> list.txt
-echo hdr-auto-brightness : HDR 재생 시 시스템 밝기 유지 (권장)>> list.txt
+echo hdr-auto-brightness : HDR 재생 시 시스템 밝기 유지 (권장)> list.txt
 echo. >> list.txt
 echo video-ads : YouTube Premium 없이 동영상 광고 제거 (권장)>> list.txt
 echo. >> list.txt
@@ -68,8 +81,6 @@ echo. >> list.txt
 echo hide-autoplay-button : 자동재생 버튼 삭제>> list.txt
 echo. >> list.txt
 echo premium-heading : YouTube Premium으로 로고 변경>> list.txt
-echo. >> list.txt
-echo custom-branding : 앱 로고를 자체 디자인으로 변경>> list.txt
 echo. >> list.txt
 echo disable-fullscreen-panels : 전체화면 영상창 댓글/정보 패널 삭제>> list.txt
 echo. >> list.txt
@@ -114,10 +125,11 @@ setx -m Path "%appdata%\JDK\z17\bin;%path_str%"
 goto main
 
 :main
+start list.txt
 cls
 echo 기능 선택
 echo.
-echo list.txt에서 기능을 골라 입력해주세요.
+echo 방금 열린 메모장 파일에서 기능을 골라 입력해주세요.
 echo *기능 앞에는 -i 를 붙여주세요.
 echo ex) -i video-ads -i general-ads
 echo.
@@ -128,7 +140,10 @@ goto write
 cd Build
 cls
 echo @echo off > build.bat
-echo java -jar revanced-cli.jar -a youtube.apk -c  -o revanced.apk -b revanced-patches.jar -m app-unsigned.apk %list% >> build.bat
+echo java -jar revanced-cli.jar -a youtube.apk -c  -o revanced.apk -b revanced-patches.jar -m app-unsigned.apk -i hide-cast-button -i microg-support -i custom-branding %list% >> build.bat
+echo move %%cd%%\revanced.apk %~dp0 >> build.bat
+echo exit >> build.bat
+
 goto run
 
 :run
