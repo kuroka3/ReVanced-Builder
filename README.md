@@ -1,6 +1,3 @@
-# ReVanced-Builder
-ReVanced Builder
-
 # 한국어 / Korean
  - `ReVanced.Builder.bat`파일을 다운받아 실행
  - ZULU JDK 17을 설치했을 경우 Y를 입력, 미설치시 N을 입력
