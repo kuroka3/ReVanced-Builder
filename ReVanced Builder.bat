@@ -24,6 +24,15 @@ if '%errorlevel%' NEQ '0' (
     CD /D "%~dp0"
 :--------------------------------------
 
+set ver=1.2
+
+echo Checking update...
+powershell -Command "(New-Object Net.WebClient).DownloadFile('https://pastebin.com/raw/sMv0GcZ4', '%tmp%\ver.txt')"
+set /p latest=<%tmp%\ver.txt
+if not %latest%==%ver% goto update
+
+set kencd=%cd%
+
 set hdr-auto-brightness=e
 set video-ads=e
 set general-ads=e
@@ -47,43 +56,54 @@ set enable-debugging=e
 set custom-playback-speed=e
 set hide-infocard-suggestions=e
 
-echo rd /s /q "%appdata%\revancedtmp" > Cleaner.bat
+echo @echo off>Cleaner.bat
+echo cd %cd%>>cleaner.bat
+echo rd /s /q "%appdata%\revancedtmp" >> Cleaner.bat
+echo del "%kencd%\Cleaner.bat" >> Cleaner.bat
+echo exit >> Cleaner.bat
 md %appdata%\revancedtmp
 cd %appdata%\revancedtmp
 md %cd%\revanced
 cd %cd%\revanced
 md Build
 md tmp
-echo download revanced-cli...
+cls
+echo Checking update...ok
+echo Download revanced-cli...
 if not exist %cd%\Build\revanced-cli.jar powershell -Command "(New-Object Net.WebClient).DownloadFile('https://cdn.discordapp.com/attachments/1012934189919768637/1015913335675428944/revanced-cli.jar', '%cd%\Build\revanced-cli.jar')"
 cls
-echo download revanced-cli...ok
-echo download revanced-patches...
+echo Checking update...ok
+echo Download revanced-cli...ok
+echo Download revanced-patches...
 if not exist %cd%\Build\revanced-patches.jar powershell -Command "(New-Object Net.WebClient).DownloadFile('https://cdn.discordapp.com/attachments/1012934189919768637/1015913337852276736/revanced-patches.jar', '%cd%\Build\revanced-patches.jar')"
 cls
-echo download revanced-cli...ok
-echo download revanced-patches...ok
-echo download youtube...
+echo Checking update...ok
+echo Download revanced-cli...ok
+echo Download revanced-patches...ok
+echo Download youtube...
 if not exist %cd%\Build\youtube.apk powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/xemulat/MyFilesForDDL/releases/download/youtube/youtube.apk', '%cd%\Build\youtube.apk')"
 cls
-echo download revanced-cli...ok
-echo download revanced-patches...ok
-echo download youtube...ok
-echo download app-unsigned...
+echo Checking update...ok
+echo Download revanced-cli...ok
+echo Download revanced-patches...ok
+echo Download youtube...ok
+echo Download app-unsigned...
 if not exist %cd%\Build\app-unsigned.apk powershell -Command "(New-Object Net.WebClient).DownloadFile('https://github.com/revanced/revanced-integrations/releases/download/v0.36.5/app-release-unsigned.apk', '%cd%\Build\app-unsigned.apk')"
 cls
-echo download revanced-cli...ok
-echo download revanced-patches...ok
-echo download youtube...ok
-echo download app-unsigned...ok
-echo download cmdclr...
+echo Checking update...ok
+echo Download revanced-cli...ok
+echo Download revanced-patches...ok
+echo Download youtube...ok
+echo Download app-unsigned...ok
+echo Download cmdclr...
 if not exist %cd%\cmdclr.exe powershell -Command "(New-Object Net.WebClient).DownloadFile('https://cdn.discordapp.com/attachments/1012934189919768637/1016355226527223920/cmdclr.exe', '%cd%\cmdclr.exe')"
 cls
-echo download revanced-cli...ok
-echo download revanced-patches...ok
-echo download youtube...ok
-echo download app-unsigned...ok
-echo download cmdclr...ok
+echo Checking update...ok
+echo Download revanced-cli...ok
+echo Download revanced-patches...ok
+echo Download youtube...ok
+echo Download app-unsigned...ok
+echo Download cmdclr...ok
 
 :ifjdk
 cls
@@ -456,7 +476,8 @@ cd Build
 cls
 echo @echo off > build.bat
 echo java -jar revanced-cli.jar -a youtube.apk -c  -o revanced.apk -b revanced-patches.jar -m app-unsigned.apk -i hide-cast-button -i microg-support -i custom-branding -%hdr-auto-brightness% hdr-auto-brightness -%video-ads% video-ads -%general-ads% general-ads -%old-quality-layout% old-quality-layout -%downloads% downloads -%swipe-controls% swipe-controls -%seekbar-tapping% seekbar-tapping -%minimized-playback% minimized-playback -%amoled% amoled -%disable-create-button% disable-create-button -%return-youtube-dislike% return-youtube-dislike -%hide-autoplay-button% hide-autoplay-button -%premium-heading% premium-heading -%disable-fullscreen-panels% disable-fullscreen-panels -%hide-shorts-button% hide-shorts-button -%sponsorblock% sponsorblock -%enable-wide-searchbar% enable-wide-searchbar -%force-vp9-codec% force-vp9-codec -%always-autorepeat% always-autorepeat -%enable-debugging% enable-debugging -%custom-playback-speed% custom-playback-speed -%hide-infocard-suggestions% hide-infocard-suggestions>> build.bat
-echo move %%cd%%\revanced.apk %~dp0 >> build.bat
+echo move %%cd%%\revanced.apk %kencd% >> build.bat
+echo start %kencd%\Cleaner.bat>> build.bat
 echo exit >> build.bat
 
 goto run
@@ -464,3 +485,13 @@ goto run
 :run
 cls
 start build.bat
+exit
+
+:update
+cls
+echo Outdated Version! : %ver%
+echo Please update : %latest%
+echo https://github.com/kuroka3/ReVanced-Builder/releases
+echo.
+pause > nul
+exit
