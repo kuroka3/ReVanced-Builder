@@ -5,6 +5,8 @@
  - 원하는 모든 기능을 입력 완료했다면 `exit`을 입력해 빌드
  - `ReVanced.Builder.bat`파일이 있는 폴더의 `revanced.apk`를 스마트폰으로 옮겨 설치
  - `Cleaner.bat`을 실행하여 임시파일을 제거
+ - *`export`를 입력해 설정을 저장할 수 있습니다
+ - *`import`를 입력해 설정을 불러올 수 있습니다
  
 # 영어 / English
  - Download `ReVanced.Builder.bat` and start
@@ -13,3 +15,5 @@
  - If you inputted all of plugins you want, input `exit` to build
  - Move `revanced.apk` from a folder that has `ReVanced.Builder.bat` to your phone and install `revanced.apk`
  - run `Cleaner.bat` to delete temp files
+ - *You can save settings by input `export`
+ - *You can load settings by input `import`
