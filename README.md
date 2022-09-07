@@ -7,6 +7,7 @@
  - `Cleaner.bat`을 실행하여 임시파일을 제거
  - *`export`를 입력해 설정을 저장할 수 있습니다
  - *`import`를 입력해 설정을 불러올 수 있습니다
+ - *`import`를 입력하고 경로 설정에서 `recommend`를 입력하면 추천 설정을 사용할 수 있습니다.
  
 # 영어 / English
  - Download `ReVanced.Builder.bat` and start
@@ -17,3 +18,4 @@
  - run `Cleaner.bat` to delete temp files
  - *You can save settings by input `export`
  - *You can load settings by input `import`
+ - *You can load recommend settings by input `recommend` in `import`
